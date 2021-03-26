@@ -1,7 +1,7 @@
 import React, {ReactNode, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAccessTokenSelector } from './authenticationSelectors';
-import { login, setAccessToken } from './authenticationReducer';
+import { login, setAccessToken } from './authenticationSlice';
 
 type ownProps = {
     children: ReactNode

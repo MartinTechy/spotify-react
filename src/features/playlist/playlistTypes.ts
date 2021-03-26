@@ -10,12 +10,12 @@ export type SpotifyPlaylist = {
     owner: PublicUser;
     public: boolean;
     snapshot_id: string;
-    tracks: PlayListTracksRef[];
+    tracks: PlayListTracksRef
     type: string;
     uri: string;
 }
 
-type PublicUser = {
+export type PublicUser = {
     displayName: string;
     external_urls: ExternalUrl;
     followers: Followers;
@@ -26,22 +26,22 @@ type PublicUser = {
     uri: string;
 }
 
-type Followers = {
+export type Followers = {
     href: string;
     total: number;
 }
 
-type PlayListTracksRef = {
+export type PlayListTracksRef = {
     href: string;
     total: number;
 }
 
-type SpotifyImage = {
+export type SpotifyImage = {
     height: number;
     url: string;
     width: number;
 }
 
-type ExternalUrl = {
+export type ExternalUrl = {
     spotify: string;
 } 

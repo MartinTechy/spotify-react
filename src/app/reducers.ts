@@ -1,9 +1,11 @@
 import { combineReducers } from "redux";
 
-import counter from '../features/counter/counterSlice'
+import playlists from '../features/playlist/playlistSlice'
+import authentication from '../features/authentication/authenticationReducer'
 
 const rootReducer = combineReducers({
-    counter
+    playlists,
+    authentication
 })
 
 export default rootReducer

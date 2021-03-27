@@ -4,9 +4,9 @@ import './App.css';
 import PlaylistDetails from './features/playlist/PlaylistDetails';
 
 function App() {
-  return (
-      <PlaylistDetails />
-  );
+	return (
+		<PlaylistDetails />
+	);
 }
 
 export default App;

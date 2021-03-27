@@ -9,9 +9,9 @@ import persistStore from 'redux-persist/es/persistStore';
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from 'redux-persist/es/constants';
 
 const persistConfig = {
-  key: 'root',
-  storage,
-  whitelist: ['authentication']
+	key: 'root',
+	storage,
+	whitelist: ['authentication']
 };
 
 const persistedReducer = persistReducer(persistConfig, reducer);
@@ -22,14 +22,14 @@ const middelwareEnhancer = applyMiddleware(...middlewares);
 const enhancers = [middelwareEnhancer];
 
 export const store = configureStore({
-  devTools: true,
-  reducer: persistedReducer,
-  enhancers,
-  middleware: getDefaultMiddleware({
-    serializableCheck: {
-      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
-    }
-  })
+	devTools: true,
+	reducer: persistedReducer,
+	enhancers,
+	middleware: getDefaultMiddleware({
+		serializableCheck: {
+			ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+		}
+	})
 });
 
 export const persistor = persistStore(store);

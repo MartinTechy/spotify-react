@@ -7,33 +7,33 @@ import { fetchTracksForPlaylist, fetchTracksForPlaylistSuccess, fetchTracksForPl
 import { Track } from './trackTypes';
 
 function* fetchTracksForPlaylistSaga({ payload }: PayloadAction<FetchTracksForPlaylistPayload>) {
-    try {
-        const { playlist : { tracks } } = payload;
+	try {
+		const { playlist : { tracks } } = payload;
         
-        const accessToken:string = yield select(getAccessTokenSelector());
+		const accessToken:string = yield select(getAccessTokenSelector());
 
-        const { data } = yield axios({ 
-            accessToken,
-            baseURL: tracks.href,
-        }).get('');
+		const { data } = yield axios({ 
+			accessToken,
+			baseURL: tracks.href,
+		}).get('');
 
-        const tracksResult: Track[] = data.items.map((item: {track: Track}) => item.track);
+		const tracksResult: Track[] = data.items.map((item: {track: Track}) => item.track);
 
-        yield put(fetchTracksForPlaylistSuccess({
-            tracks: tracksResult,
-        }));
+		yield put(fetchTracksForPlaylistSuccess({
+			tracks: tracksResult,
+		}));
 
-    } catch(error) {
-        console.error(error);
-        yield put(fetchTracksForPlaylistError({
-            message: error.message
-        }));
-    }
+	} catch(error) {
+		console.error(error);
+		yield put(fetchTracksForPlaylistError({
+			message: error.message
+		}));
+	}
 
 }
 
 
 /** @internal */
 export default  function* trackSaga(): Generator {
-    yield takeEvery (fetchTracksForPlaylist.type, fetchTracksForPlaylistSaga);
+	yield takeEvery (fetchTracksForPlaylist.type, fetchTracksForPlaylistSaga);
 }

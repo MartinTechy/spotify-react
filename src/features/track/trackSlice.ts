@@ -19,26 +19,26 @@ export interface FetchTracksForPlaylistSuccessPayload {
 }
 
 const initialState: TrackReducerState = {
-    tracks: [],
-    status: RequestStatus.IDLE,
+	tracks: [],
+	status: RequestStatus.IDLE,
 };
 
 const trackSlice = createSlice({
-    name: 'tracks',
-    initialState,
-    reducers: {
-        fetchTracksForPlaylist(state, action: PayloadAction<FetchTracksForPlaylistPayload>) {
-            state.status = RequestStatus.PENDING;
-        },
-        fetchTracksForPlaylistSuccess(state, action: PayloadAction<FetchTracksForPlaylistSuccessPayload>) {
-            state.status = RequestStatus.SUCCESS;
-            state.tracks = action.payload.tracks;
-        },
-        fetchTracksForPlaylistError(state, action: PayloadAction<ErrorPayload>) {
-            state.status = RequestStatus.ERROR;
-            state.error = action.payload.message;
-        }
-    }
+	name: 'tracks',
+	initialState,
+	reducers: {
+		fetchTracksForPlaylist(state, action: PayloadAction<FetchTracksForPlaylistPayload>) {
+			state.status = RequestStatus.PENDING;
+		},
+		fetchTracksForPlaylistSuccess(state, action: PayloadAction<FetchTracksForPlaylistSuccessPayload>) {
+			state.status = RequestStatus.SUCCESS;
+			state.tracks = action.payload.tracks;
+		},
+		fetchTracksForPlaylistError(state, action: PayloadAction<ErrorPayload>) {
+			state.status = RequestStatus.ERROR;
+			state.error = action.payload.message;
+		}
+	}
 });
 
 export const { fetchTracksForPlaylist, fetchTracksForPlaylistSuccess, fetchTracksForPlaylistError } = trackSlice.actions;

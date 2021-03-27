@@ -7,11 +7,11 @@ type Props = {
 
 
 function TrackDetail({ track }: Props) {
-    const { name, album } = track;
+	const { name, album } = track;
 
-    return (<>
-        {`${name} - ${album.name} - ${album.release_date}`}<br />
-    </>);
+	return (<>
+		{`${name} - ${album.name} - ${album.release_date}`}<br />
+	</>);
 }
 
 export default TrackDetail;

@@ -18,17 +18,17 @@ const initialState:AuthenticationReducerState = {
 };
 
 const authenticationSlice = createSlice({
-    name: 'authentication',
-    initialState,
-    reducers: {
-        login(state) {
-            window.location.href = `${ACCOUNT_BASE_URL}${PATHS.AUTHORIZE}?client_id=${process.env.REACT_APP_CLIENT_ID}&response_type=${RESPONSE_TYPE}&redirect_uri=${REDIRECT_URI}&scope=${SCOPE}`;
-        },
-        setAccessToken(state, action:PayloadAction<SetAccessTokenPayload>) {
-            state.accessToken = action.payload.accessToken;
-            window.location.href = '';
-        }
-    }
+	name: 'authentication',
+	initialState,
+	reducers: {
+		login(state) {
+			window.location.href = `${ACCOUNT_BASE_URL}${PATHS.AUTHORIZE}?client_id=${process.env.REACT_APP_CLIENT_ID}&response_type=${RESPONSE_TYPE}&redirect_uri=${REDIRECT_URI}&scope=${SCOPE}`;
+		},
+		setAccessToken(state, action:PayloadAction<SetAccessTokenPayload>) {
+			state.accessToken = action.payload.accessToken;
+			window.location.href = '';
+		}
+	}
 });
 
 export const { login, setAccessToken } = authenticationSlice.actions;

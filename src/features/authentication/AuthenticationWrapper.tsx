@@ -8,27 +8,27 @@ type ownProps = {
 }
 
 function AuthenticationWrapper({ children }: ownProps) {
-    const dispatch = useDispatch();
-    const accessToken = useSelector(getAccessTokenSelector());
+	const dispatch = useDispatch();
+	const accessToken = useSelector(getAccessTokenSelector());
 
-    const { location } = window;
-    const regex = /.*access_token=(?<accesToken>[^&]*)/gi;
-    const params = regex.exec(location.hash);
+	const { location } = window;
+	const regex = /.*access_token=(?<accesToken>[^&]*)/gi;
+	const params = regex.exec(location.hash);
 
-    if(!accessToken && !params) {
-        dispatch(login());
-    }
+	if(!accessToken && !params) {
+		dispatch(login());
+	}
 
-    useEffect(() => {
-        if(params && params[1]) {
-            dispatch(setAccessToken({ accessToken: params[1] }));
-        }
-    }, []);
+	useEffect(() => {
+		if(params && params[1]) {
+			dispatch(setAccessToken({ accessToken: params[1] }));
+		}
+	}, []);
     
 
-    return (<>
-        {children}
-    </>);
+	return (<>
+		{children}
+	</>);
 }
 
 export default AuthenticationWrapper;

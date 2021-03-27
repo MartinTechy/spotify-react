@@ -7,7 +7,8 @@
             "react-hooks/exhaustive-deps": "off",
             "quotes": ["error", "single"],
             "semi": [2, "always"],
-            "object-curly-spacing": ["error", "always"]
+            "object-curly-spacing": ["error", "always"],
+            "indent": ["error", "tab"]
           }
         }
       ]

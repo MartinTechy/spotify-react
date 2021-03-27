@@ -1,31 +1,42 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import TrackDetail from '../track/TrackDetail';
+import PlaylistSelect from './PlaylistSelect';
+
 import { getTracksSelector } from '../track/trackSelectors';
 import { fetchTracksForPlaylist } from '../track/trackSlice';
-import PlaylistSelect from './PlaylistSelect';
 import { getCurrentPlaylistSelector, getPlaylistsSelector } from './playlistSelectors';
 import { fetchPlaylists } from './playlistSlice';
+import TrackSearch from '../trackSearch/TrackSearch';
 
 function PlaylistDetails() {
-    const dispatch = useDispatch();
-    const playlists = useSelector(getPlaylistsSelector()); 
-    const currentPlaylist = useSelector(getCurrentPlaylistSelector());
-    const tracks = useSelector(getTracksSelector());
+	const dispatch = useDispatch();
+	const playlists = useSelector(getPlaylistsSelector()); 
+	const currentPlaylist = useSelector(getCurrentPlaylistSelector());
+	const tracks = useSelector(getTracksSelector());
 
-    useEffect(() => {
-        dispatch(fetchPlaylists());
-    }, []);
+	useEffect(() => {
+		dispatch(fetchPlaylists());
+	}, []);
 
-    useEffect(() => {
-        if(currentPlaylist) dispatch(fetchTracksForPlaylist({ playlist: currentPlaylist }));
-    }, [currentPlaylist]);
+	useEffect(() => {
+		if(currentPlaylist) dispatch(fetchTracksForPlaylist({ playlist: currentPlaylist }));
+	}, [currentPlaylist]);
 
 
-    return (<>
-        <PlaylistSelect playlists={playlists} /> <br />
-        {tracks.map(track => (<TrackDetail key={`track-detail-${track.id}`} track={track} />))}
-    </>);
+	return (<>
+		<div>
+			<TrackSearch />
+		</div>
+		<div>
+			<PlaylistSelect playlists={playlists} /> 
+			{currentPlaylist?.description}<br />
+		</div>
+		<div>
+			{tracks.map(track => (<TrackDetail key={`track-detail-${track.id}`} track={track} />))}
+		</div>
+	</>);
 }
 
 export default PlaylistDetails;

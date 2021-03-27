@@ -6,7 +6,7 @@ export const getPlaylistsSelector = () => (state: RootState):SpotifyPlaylist[] =
 export const getCurrentPlaylistIDSelector = () => (state: RootState):string => state.playlists.currentPlaylistID;
 
 export const getCurrentPlaylistSelector = () => (state: RootState) => {
-    const { currentPlaylistID, playlists } = state.playlists;
+	const { currentPlaylistID, playlists } = state.playlists;
 
-    return playlists.find(playlist => playlist.id === currentPlaylistID);
+	return playlists.find(playlist => playlist.id === currentPlaylistID);
 };

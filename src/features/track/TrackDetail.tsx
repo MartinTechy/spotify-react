@@ -1,5 +1,4 @@
 import React from 'react';
-import { Row } from 'react-bootstrap';
 import { Track } from './trackTypes';
 
 type Props = {
@@ -10,9 +9,9 @@ type Props = {
 function TrackDetail({ track }: Props) {
     const { name, album } = track
 
-    return (<Row>
+    return (<>
         {`${name} - ${album.name} - ${album.release_date}`}
-    </Row>)
+    </>)
 }
 
 export default TrackDetail;

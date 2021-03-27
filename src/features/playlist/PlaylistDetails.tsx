@@ -7,23 +7,23 @@ import { getCurrentPlaylistSelector, getPlaylistsSelector } from './playlistSele
 import { fetchPlaylists } from './playlistSlice';
 
 function PlaylistDetails() {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const playlists = useSelector(getPlaylistsSelector()); 
     const currentPlaylist = useSelector(getCurrentPlaylistSelector());
     const tracks = useSelector(getTracksSelector());
 
     useEffect(() => {
-        dispatch(fetchPlaylists())
-    }, [])
+        dispatch(fetchPlaylists());
+    }, []);
 
     useEffect(() => {
-        if(currentPlaylist) dispatch(fetchTracksForPlaylist({playlist: currentPlaylist}))
-    }, [currentPlaylist])
+        if(currentPlaylist) dispatch(fetchTracksForPlaylist({playlist: currentPlaylist}));
+    }, [currentPlaylist]);
 
 
     return (<>
         {tracks.map(track => (<TrackDetail key={`track-detail-${track.id}`} track={track} />))}
-    </>)
+    </>);
 }
 
 export default PlaylistDetails;

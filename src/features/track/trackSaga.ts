@@ -1,10 +1,10 @@
-import { takeEvery, put, select } from "@redux-saga/core/effects";
+import { takeEvery, put, select } from '@redux-saga/core/effects';
 
-import { PayloadAction } from "@reduxjs/toolkit";
-import { axios } from "../../utils/axios";
-import { getAccessTokenSelector } from "../authentication/authenticationSelectors";
-import { fetchTracksForPlaylist, fetchTracksForPlaylistSuccess, fetchTracksForPlaylistError, FetchTracksForPlaylistPayload } from "./trackSlice";
-import { Track } from "./trackTypes";
+import { PayloadAction } from '@reduxjs/toolkit';
+import { axios } from '../../utils/axios';
+import { getAccessTokenSelector } from '../authentication/authenticationSelectors';
+import { fetchTracksForPlaylist, fetchTracksForPlaylistSuccess, fetchTracksForPlaylistError, FetchTracksForPlaylistPayload } from './trackSlice';
+import { Track } from './trackTypes';
 
 function* fetchTracksForPlaylistSaga({ payload }: PayloadAction<FetchTracksForPlaylistPayload>) {
     try {
@@ -21,13 +21,13 @@ function* fetchTracksForPlaylistSaga({ payload }: PayloadAction<FetchTracksForPl
 
         yield put(fetchTracksForPlaylistSuccess({
             tracks: tracksResult,
-        }))
+        }));
 
     } catch(error) {
         console.error(error);
         yield put(fetchTracksForPlaylistError({
             message: error.message
-        }))
+        }));
     }
 
 }

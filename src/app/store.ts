@@ -1,20 +1,20 @@
 import { configureStore, ThunkAction, Action, applyMiddleware, getDefaultMiddleware } from '@reduxjs/toolkit';
-import createSagaMiddleware from "redux-saga";
-import { persistReducer } from 'redux-persist'
-import storage from 'redux-persist/es/storage/session'
+import createSagaMiddleware from 'redux-saga';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/es/storage/session';
 
-import sagas from './sagas'
-import reducer from './reducers'
+import sagas from './sagas';
+import reducer from './reducers';
 import persistStore from 'redux-persist/es/persistStore';
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from 'redux-persist/es/constants';
 
 const persistConfig = {
-  key: "root",
+  key: 'root',
   storage,
   whitelist: ['authentication']
-}
+};
 
-const persistedReducer = persistReducer(persistConfig, reducer)
+const persistedReducer = persistReducer(persistConfig, reducer);
 
 const sagaMiddleware = createSagaMiddleware();
 const middlewares = [sagaMiddleware];
@@ -34,7 +34,7 @@ export const store = configureStore({
 
 export const persistor = persistStore(store);
 
-sagaMiddleware.run(sagas)
+sagaMiddleware.run(sagas);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<ReturnType = void> = ThunkAction<

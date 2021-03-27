@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import TrackDetail from '../track/TrackDetail';
 import { getTracksSelector } from '../track/trackSelectors';
 import { fetchTracksForPlaylist } from '../track/trackSlice';
+import PlaylistSelect from './PlaylistSelect';
 import { getCurrentPlaylistSelector, getPlaylistsSelector } from './playlistSelectors';
 import { fetchPlaylists } from './playlistSlice';
 
@@ -17,11 +18,12 @@ function PlaylistDetails() {
     }, []);
 
     useEffect(() => {
-        if(currentPlaylist) dispatch(fetchTracksForPlaylist({playlist: currentPlaylist}));
+        if(currentPlaylist) dispatch(fetchTracksForPlaylist({ playlist: currentPlaylist }));
     }, [currentPlaylist]);
 
 
     return (<>
+        <PlaylistSelect playlists={playlists} /> <br />
         {tracks.map(track => (<TrackDetail key={`track-detail-${track.id}`} track={track} />))}
     </>);
 }

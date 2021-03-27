@@ -1,4 +1,4 @@
-import { ExternalUrl, SpotifyImage, Followers } from '../playlist/playlistTypes'
+import { ExternalUrl, SpotifyImage, Followers } from '../playlist/playlistTypes';
 
 export type Track = {
     album: Album;

@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { RequestStatus } from "../../types/requests"
-import { ErrorPayload } from "../../types/store";
-import { SpotifyPlaylist } from "./playlistTypes";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RequestStatus } from '../../types/requests';
+import { ErrorPayload } from '../../types/store';
+import { SpotifyPlaylist } from './playlistTypes';
 
 export interface PlaylistReducerState {
     playlists: SpotifyPlaylist[];
@@ -22,7 +22,7 @@ const initialState:PlaylistReducerState = {
     playlists: [],
     currentPlaylistID: '',
     status: RequestStatus.IDLE,
-}
+};
 
 const playlistSlice = createSlice({
     name: 'playlist',
@@ -33,9 +33,9 @@ const playlistSlice = createSlice({
         },
         fetchPlaylistsSuccess(state, action: PayloadAction<FetchPlaylistsSuccessPaylaod>) {
             state.status = RequestStatus.SUCCESS;
-            state.playlists = action.payload.playlists
-            state.currentPlaylistID = action.payload.playlists[0].id
-            state.error = undefined
+            state.playlists = action.payload.playlists;
+            state.currentPlaylistID = action.payload.playlists[0].id;
+            state.error = undefined;
         },
         fetchPlaylistsError(state, action: PayloadAction<ErrorPayload> ) {
             state.status = RequestStatus.ERROR;

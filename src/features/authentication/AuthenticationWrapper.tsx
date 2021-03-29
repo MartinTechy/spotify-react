@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAccessTokenSelector } from './authenticationSelectors';
-import { login, setAccessToken } from './authenticationSlice';
+import { fetchUserID, login, setAccessToken } from './authenticationSlice';
 
 type ownProps = {
     children: ReactNode
@@ -24,6 +24,12 @@ function AuthenticationWrapper({ children }: ownProps) {
 			dispatch(setAccessToken({ accessToken: params[1] }));
 		}
 	}, []);
+
+	useEffect(() => {
+		if(accessToken) {
+			dispatch(fetchUserID());
+		}
+	});
     
 
 	return (<>

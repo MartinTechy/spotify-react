@@ -18,6 +18,16 @@ export interface SetCurrentPlaylistIDPayload {
     id: string;
 }
 
+export interface CreatePlaylistPayload {
+	name: string;
+	description: string;
+	isPrivate?: boolean;
+}
+
+export interface CreatePlaylistSuccessPayload {
+	playlist: SpotifyPlaylist;
+}
+
 const initialState:PlaylistReducerState = {
 	playlists: [],
 	currentPlaylistID: '',
@@ -41,13 +51,34 @@ const playlistSlice = createSlice({
 			state.status = RequestStatus.ERROR;
 			state.error = action.payload.message;
 		},
+		createPlaylist(state, action: PayloadAction<CreatePlaylistPayload>){
+			state.status = RequestStatus.PENDING;
+		},
+		createPlaylistSuccess(state, action: PayloadAction<CreatePlaylistSuccessPayload>){
+			const { playlist } = action.payload;
+			state.status = RequestStatus.SUCCESS;
+			state.playlists = [playlist, ...state.playlists];
+			state.currentPlaylistID = playlist.id;
+		},
+		createPlaylistError(state, action: PayloadAction<ErrorPayload>){
+			state.status = RequestStatus.ERROR;
+			state.error = action.payload.message;
+		},
 		setCurrentPlaylist(state, action: PayloadAction<SetCurrentPlaylistIDPayload>) {
 			const { id } = action.payload;
-			if(state.playlists.findIndex(playlist => playlist.id === id )) state.currentPlaylistID = action.payload.id;
-			else state.error = 'Invalid playlist id';
+			if(state.playlists.findIndex(playlist => playlist.id === id ) !== -1) state.currentPlaylistID = id;
+			else state.error = `Invalid playlist id: ${id}`;
 		},
 	},
 });
 
-export const { fetchPlaylists, fetchPlaylistsSuccess, fetchPlaylistsError, setCurrentPlaylist } = playlistSlice.actions;
+export const { 
+	fetchPlaylists, 
+	fetchPlaylistsSuccess, 
+	fetchPlaylistsError, 
+	setCurrentPlaylist, 
+	createPlaylist, 
+	createPlaylistSuccess, 
+	createPlaylistError 
+} = playlistSlice.actions;
 export default playlistSlice.reducer;

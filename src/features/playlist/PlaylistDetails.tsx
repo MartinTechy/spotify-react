@@ -9,6 +9,7 @@ import { fetchTracksForPlaylist } from '../track/trackSlice';
 import { getCurrentPlaylistSelector, getPlaylistsSelector } from './playlistSelectors';
 import { fetchPlaylists } from './playlistSlice';
 import TrackSearch from '../trackSearch/TrackSearch';
+import CreatePlaylist from './CreatePlaylist';
 
 function PlaylistDetails() {
 	const dispatch = useDispatch();
@@ -26,6 +27,9 @@ function PlaylistDetails() {
 
 
 	return (<>
+		<div>
+			<CreatePlaylist />
+		</div>
 		<div>
 			<TrackSearch />
 		</div>

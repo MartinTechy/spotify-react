@@ -20,7 +20,6 @@ function* searchTrackSaga({ payload }: PayloadAction<SearchTrackPayload>) {
 		});
 
 		yield put(searchTrackSuccess({ tracks: data.tracks.items }));
-
 	}catch(error) {
 		console.error(error);
 		yield put(searchTrackError({ message: error.message }));

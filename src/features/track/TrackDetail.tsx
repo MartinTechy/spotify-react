@@ -5,7 +5,6 @@ type Props = {
     track: Track;
 }
 
-
 function TrackDetail({ track }: Props) {
 	const { name, album } = track;
 

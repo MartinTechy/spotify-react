@@ -5,6 +5,7 @@ export const API_BASE_URL = 'https://api.spotify.com/v1';
 export const ACCOUNT_BASE_URL = 'https://accounts.spotify.com';
 
 export const PATHS = {
+	ADD_TRACK: (playlistID:string) => `/playlists/${playlistID}/tracks`,
 	AUTHORIZE: '/me/authorize',
 	CREATE_PLAYLIST: (userID:string) => (`/users/${userID}/playlists`),
 	PLAYLISTS: '/me/playlists',

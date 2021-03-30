@@ -28,6 +28,10 @@ export interface CreatePlaylistSuccessPayload {
 	playlist: SpotifyPlaylist;
 }
 
+export interface AddTrackToPlaylistPayload {
+	trackURI: string;
+}
+
 const initialState:PlaylistReducerState = {
 	playlists: [],
 	currentPlaylistID: '',
@@ -69,6 +73,16 @@ const playlistSlice = createSlice({
 			if(state.playlists.findIndex(playlist => playlist.id === id ) !== -1) state.currentPlaylistID = id;
 			else state.error = `Invalid playlist id: ${id}`;
 		},
+		addTrackToPlaylist(state, action: PayloadAction<AddTrackToPlaylistPayload>) {
+			state.status = RequestStatus.PENDING;
+		},
+		addTrackToPlaylistSuccess(state) {
+			state.status = RequestStatus.SUCCESS;
+		},
+		addTrackToPlaylistError(state, action: PayloadAction<ErrorPayload>) {
+			state.status = RequestStatus.ERROR;
+			state.error = action.payload.message;
+		}
 	},
 });
 
@@ -79,6 +93,9 @@ export const {
 	setCurrentPlaylist, 
 	createPlaylist, 
 	createPlaylistSuccess, 
-	createPlaylistError 
+	createPlaylistError,
+	addTrackToPlaylist,
+	addTrackToPlaylistSuccess,
+	addTrackToPlaylistError
 } = playlistSlice.actions;
 export default playlistSlice.reducer;

@@ -3,7 +3,7 @@ import { RequestStatus } from '../../types/requests';
 import { ErrorPayload } from '../../types/store';
 import { ACCOUNT_BASE_URL, PATHS } from '../../utils/axios';
 
-const SCOPE = 'playlist-read-private playlist-modify-private playlist-modify-public';
+const SCOPE = 'playlist-read-private playlist-modify-private playlist-modify-public playlist-modify-public playlist-modify-private';
 const RESPONSE_TYPE ='token';
 const REDIRECT_URI = 'http://localhost:3000';
 

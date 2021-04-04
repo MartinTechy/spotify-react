@@ -12,9 +12,11 @@ function PlaylistSelect({ playlists }: Props) {
 	const dispatch = useDispatch();
 	const currentPlaylistID = useSelector(getCurrentPlaylistIDSelector());
 
-	return (<select onChange={event => dispatch(setCurrentPlaylist({ id: event.target.value }))} value={currentPlaylistID}>
-		{playlists && playlists.map(playlist => (<option key={`playlist-select-${playlist.id}`} value={playlist.id}>{playlist.name}</option>))}
-	</select>);
+	return (<div className='spot-playlist-select'>
+		<select onChange={event => dispatch(setCurrentPlaylist({ id: event.target.value }))} value={currentPlaylistID}>
+			{playlists && playlists.map(playlist => (<option key={`playlist-select-${playlist.id}`} value={playlist.id}>{playlist.name}</option>))}
+		</select>
+	</div>);
 }
 
 export default PlaylistSelect;

@@ -1,0 +1,16 @@
+@import './assets/styles/colors.scss';
+
+body {
+  background-color: $primary;
+  color: $white;
+}
+
+.spot-app {
+  margin: 0 4vw;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+}

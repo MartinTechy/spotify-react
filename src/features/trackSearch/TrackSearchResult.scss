@@ -1,0 +1,29 @@
+@import '../../assets/styles/colors.scss';
+
+.spot-track-search-result-row {
+    display: flex;
+    align-items: center;
+
+    border: 1px solid white ;
+    border-top: none;
+    padding: 10px;
+
+    &__track-details {
+        display: flex;
+        align-items: center;
+
+        width: 100%;
+        img {
+            max-height: 50px;
+            max-width: 50px;
+            margin-right: 35px;
+        }
+    }
+
+    &__add-button{
+        color: $secondary;
+        cursor: pointer;
+        margin: 0 20px;
+        font-size: 25px;
+    }
+}

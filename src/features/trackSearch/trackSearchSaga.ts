@@ -4,7 +4,8 @@ import { axios, PATHS } from '../../utils/axios';
 import { getAccessTokenSelector } from '../authentication/authenticationSelectors';
 import { searchTrack, searchTrackError, SearchTrackPayload, searchTrackSuccess } from './trackSearchSlice';
 
-const SEARCH_LIMIT = 20;
+const SEARCH_LIMIT = 5;
+const SEARCH_TYPES = 'track';
 
 function* searchTrackSaga({ payload }: PayloadAction<SearchTrackPayload>) {
 	try {
@@ -14,7 +15,7 @@ function* searchTrackSaga({ payload }: PayloadAction<SearchTrackPayload>) {
 		const { data } = yield axios({ accessToken }).get(PATHS.SEARCH, {
 			params: {
 				q: searchString,
-				type: 'track',
+				type: SEARCH_TYPES,
 				limit: SEARCH_LIMIT
 			}
 		});

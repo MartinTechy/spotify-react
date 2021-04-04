@@ -36,9 +36,12 @@ const trackSearchSlice = createSlice({
 		searchTrackError(state, action: PayloadAction<ErrorPayload>) {
 			state.status = RequestStatus.ERROR;
 			state.error = action.payload.message;
+		},
+		clearSearchResults(state) {
+			state.result = [];
 		}
 	}
 });
 
-export const { searchTrack, searchTrackSuccess, searchTrackError } = trackSearchSlice.actions;
+export const { searchTrack, searchTrackSuccess, searchTrackError, clearSearchResults } = trackSearchSlice.actions;
 export default trackSearchSlice.reducer;

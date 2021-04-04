@@ -10,3 +10,5 @@ export const getCurrentPlaylistSelector = () => (state: RootState) => {
 
 	return playlists.find(playlist => playlist.id === currentPlaylistID);
 };
+
+export const getCurrentPlaylistDescriptionSelector = () => (state: RootState) => getCurrentPlaylistSelector()(state)?.description;

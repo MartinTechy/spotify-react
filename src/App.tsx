@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
+
 import PlaylistDetails from './features/playlist/PlaylistDetails';
 import CreatePlaylist from './features/playlist/CreatePlaylistButton';
 import TrackSearch from './features/trackSearch/TrackSearch';

@@ -1,0 +1,10 @@
+.spot-playlist-select {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+    &__input {
+        margin-right: 15px;
+        padding: 5px 15px;
+    }
+}

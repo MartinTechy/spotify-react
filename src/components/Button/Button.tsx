@@ -9,7 +9,8 @@ interface Props {
 }
 
 export enum BUTTON_STYLES {
-    PRIMARY = 'primary'
+    PRIMARY = 'primary',
+	SECONDARY = 'secondary',
 }
 
 function Button({ text, style, onClick }: Props) {

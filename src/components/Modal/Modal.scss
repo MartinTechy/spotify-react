@@ -1,0 +1,39 @@
+@import '../../assets/styles/colors.scss';
+@import '../../assets/styles/fonts.scss';
+
+.spot-modal {
+    position: fixed; 
+    z-index: 1010; 
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90%;
+    overflow: auto;
+    background-color: white;
+    padding: 25px 40px;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 65%;
+
+    &__header {
+        border-bottom: 1px lightgray solid;
+        padding-bottom: 2rem;
+        color: $primary;
+        font-size: 20px;
+        font-weight: $bold;
+    }
+
+    &-overlay {
+        z-index: 1000;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        opacity: 0.6;
+    }
+}

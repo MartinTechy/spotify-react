@@ -1,0 +1,29 @@
+
+.spot-create-playlist-modal {
+    display: flex;
+    flex-direction: column;
+
+    &__name {
+        margin: 15px 0px 5px 0px;
+        padding: 5px 15px ;
+    }
+
+    &__description {
+        margin: 5px 0px 15px 0px;
+        padding: 5px 15px;
+
+        height: 30vh;
+
+        resize: none;
+    }
+
+    &__buttons {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+
+        >* {
+            margin: 0px 7px
+        }
+    }
+}

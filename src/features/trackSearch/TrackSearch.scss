@@ -1,6 +1,7 @@
 @import '../../assets/styles/colors.scss';
 
 .spot-track-search {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -19,9 +20,8 @@
     }
 
     &__results {
-        // TODO: Replace by appropriate placement later
         position: absolute;
-        top: 38px;
+        top: 32px;
         width: 30vw;
         background-color: $primary;
 

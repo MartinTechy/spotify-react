@@ -60,7 +60,6 @@ function TrackSearch({ searchOnChange }: Props) {
 			type="text" 
 			placeholder='Search for a track' 
 			onChange={handleChange} 
-			onBlur={() => setShowResults(false)}
 			onFocus={() => setShowResults(true)}
 		/>
 		<div className='spot-track-search__results'>

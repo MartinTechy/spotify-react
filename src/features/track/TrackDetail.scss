@@ -1,0 +1,30 @@
+@import '../../assets/styles/colors.scss';
+
+.spot-track-detail {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border: 1px solid $tertiary;
+    
+    margin: 20px 0px;
+    padding: 5px;
+
+    &__album-cover {
+        img {
+            max-height: 7vw;
+        }
+    }
+
+    &__track-info {
+        width: 25%;
+    }
+    
+    &__album-name {
+        width: 25%;
+    }
+
+    &__release-date {
+        width: 25%;
+    }
+}

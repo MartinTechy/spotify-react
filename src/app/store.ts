@@ -1,7 +1,7 @@
 import { configureStore, ThunkAction, Action, applyMiddleware, getDefaultMiddleware } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/es/storage/session';
+import storage from 'redux-persist/lib/storage/session';
 
 import sagas from './sagas';
 import reducer from './reducers';
@@ -18,8 +18,8 @@ const persistedReducer = persistReducer(persistConfig, reducer);
 
 const sagaMiddleware = createSagaMiddleware();
 const middlewares = [sagaMiddleware];
-const middelwareEnhancer = applyMiddleware(...middlewares);
-const enhancers = [middelwareEnhancer];
+const middlewareEnhancer = applyMiddleware(...middlewares);
+const enhancers = [middlewareEnhancer];
 
 export const store = configureStore({
 	devTools: true,

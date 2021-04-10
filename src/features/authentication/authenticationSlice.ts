@@ -5,7 +5,7 @@ import { ACCOUNT_BASE_URL, PATHS } from '../../utils/axios';
 
 const SCOPE = 'playlist-read-private playlist-modify-private playlist-modify-public playlist-modify-public playlist-modify-private';
 const RESPONSE_TYPE ='token';
-const REDIRECT_URI = 'http://localhost:3000';
+const REDIRECT_URI = window.location.origin;
 
 export interface AuthenticationReducerState {
     accessToken?: string;
@@ -35,7 +35,7 @@ const authenticationSlice = createSlice({
 		},
 		setAccessToken(state, action:PayloadAction<SetAccessTokenPayload>) {
 			state.accessToken = action.payload.accessToken;
-			window.location.href = '';
+			window.history.pushState({ REDIRECT_URI }, '', REDIRECT_URI);
 		},
 		fetchUserID(state) {
 			state.status = RequestStatus.PENDING;

@@ -12,15 +12,19 @@ import { getCurrentPlaylistSelector, getPlaylistsSelector } from './features/pla
 import { fetchPlaylists } from './features/playlist/playlistSlice';
 import { fetchTracksForPlaylist } from './features/track/trackSlice';
 import Modal from './components/Modal/Modal';
+import { getIsAuthenticated } from './features/authentication/authenticationSelectors';
 
 function App() {
 	const dispatch = useDispatch();
+	const isAuthenticated = useSelector(getIsAuthenticated());
 	const playlists = useSelector(getPlaylistsSelector());
 	const currentPlaylist = useSelector(getCurrentPlaylistSelector());
 
 	useEffect(() => {
-		dispatch(fetchPlaylists());
-	}, []);
+		if(isAuthenticated) {
+			dispatch(fetchPlaylists());
+		}
+	}, [isAuthenticated]);
 
 	useEffect(() => {
 		if(currentPlaylist) dispatch(fetchTracksForPlaylist({ playlist: currentPlaylist }));

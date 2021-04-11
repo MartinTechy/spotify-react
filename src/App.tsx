@@ -8,17 +8,19 @@ import CreateEditPlaylistButton from './features/playlist/CreateEditPlaylistButt
 import TrackSearch from './features/trackSearch/TrackSearch';
 import PlaylistSelect from './features/playlist/PlaylistSelect';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCurrentPlaylistSelector, getPlaylistsSelector } from './features/playlist/playlistSelectors';
+import { getCurrentPlaylistSelector, getPlaylistsLoadingSelector, getPlaylistsSelector } from './features/playlist/playlistSelectors';
 import { fetchPlaylists } from './features/playlist/playlistSlice';
 import { fetchTracksForPlaylist } from './features/track/trackSlice';
 import Modal from './components/Modal/Modal';
 import { getIsAuthenticated } from './features/authentication/authenticationSelectors';
+import Loader from './components/Loader/Loader';
 
 function App() {
 	const dispatch = useDispatch();
 	const isAuthenticated = useSelector(getIsAuthenticated());
 	const playlists = useSelector(getPlaylistsSelector());
 	const currentPlaylist = useSelector(getCurrentPlaylistSelector());
+	const isLoading = useSelector(getPlaylistsLoadingSelector());
 
 	useEffect(() => {
 		if(isAuthenticated) {
@@ -42,6 +44,9 @@ function App() {
 			<div className='spot-app__playlist-details'>
 				<PlaylistDetails />
 			</div>
+			{isLoading && <div className='spot-app__loader'>
+				<Loader  />
+			</div>}
 		</div>
 		<Modal />
 	</>);

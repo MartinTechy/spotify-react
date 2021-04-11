@@ -1,12 +1,13 @@
 import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getSearchResultsSelector } from './trackSearchSelectors';
+import { getIsTrackSearchLoadingSelector, getSearchResultsSelector } from './trackSearchSelectors';
 import { clearSearchResults, searchTrack } from './trackSearchSlice';
 import TrackSearchResult from './TrackSearchResult';
 
 import './TrackSearch.scss';
 import Button from '../../components/Button/Button';
+import Loader from '../../components/Loader/Loader';
 
 interface Props {
 	searchOnChange?: true;
@@ -19,6 +20,8 @@ function TrackSearch({ searchOnChange }: Props) {
 	const [inputValue, setInputValue] = useState('');
 	const [showResults, setShowResults] = useState(false);
 	const results = useSelector(getSearchResultsSelector());
+	const isLoading = useSelector(getIsTrackSearchLoadingSelector());
+
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	function  handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -62,9 +65,10 @@ function TrackSearch({ searchOnChange }: Props) {
 			onChange={handleChange} 
 			onFocus={() => setShowResults(true)}
 		/>
-		<div className='spot-track-search__results'>
-			{showResults && results.map(track => (<TrackSearchResult key={`track-search-${track.id}`} track={track} onTrackAdded={onTrackAdded} />))}
-		</div>
+		{showResults && <div className='spot-track-search__results'>
+			{!isLoading && results.map(track => (<TrackSearchResult key={`track-search-${track.id}`} track={track} onTrackAdded={onTrackAdded} />))}
+			{isLoading && <Loader />}
+		</div>}
 		<div className='spot-track-search__button'>
 			{ !searchOnChange && <Button onClick={onTrackSearch} text='Search' />}
 		</div>

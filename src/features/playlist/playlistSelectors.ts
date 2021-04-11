@@ -1,4 +1,5 @@
 import { RootState } from '../../app/store';
+import { RequestStatus } from '../../types/requests';
 import { SpotifyPlaylist } from './playlistTypes';
 
 export const getPlaylistsSelector = () => (state: RootState):SpotifyPlaylist[] => state.playlists.playlists;
@@ -14,3 +15,5 @@ export const getCurrentPlaylistSelector = () => (state: RootState) => {
 export const getCurrentPlaylistDescriptionSelector = () => (state: RootState) => getCurrentPlaylistSelector()(state)?.description;
 
 export const getCurrentPlaylistNameSelector = () => (state: RootState) => getCurrentPlaylistSelector()(state)?.name;
+
+export const getPlaylistsLoadingSelector = () => (state: RootState) => state.playlists.status === RequestStatus.PENDING;

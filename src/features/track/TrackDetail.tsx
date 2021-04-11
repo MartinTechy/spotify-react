@@ -1,4 +1,7 @@
 import React from 'react';
+import { IoTrash } from 'react-icons/io5';
+import { useDispatch } from 'react-redux';
+import { removeTrackFromPlaylist } from '../playlist/playlistSlice';
 
 import './TrackDetail.scss';
 
@@ -6,10 +9,13 @@ import { Track } from './trackTypes';
 
 type Props = {
     track: Track;
+	trackIndex: number;
 }
 
-function TrackDetail({ track }: Props) {
-	const { name, album, artists } = track;
+function TrackDetail({ track, trackIndex }: Props) {
+	const { name, album, artists, uri } = track;
+	const dispatch = useDispatch();
+
 
 	return (<div className='spot-track-detail'>
 		<div className='spot-track-detail__album-cover'>
@@ -28,6 +34,12 @@ function TrackDetail({ track }: Props) {
 		</div>
 		<div className='spot-track-detail__release-date'>
 			{album.release_date}
+		</div>
+		<div className='spot-track-detail__track-actions'>
+			<IoTrash 
+				className='spot-track-detail__delete-button' 
+				onClick={() => dispatch(removeTrackFromPlaylist({ trackURI: uri, position: trackIndex }))}
+			/>
 		</div>
 	</div>);
 }

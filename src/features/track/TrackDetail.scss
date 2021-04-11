@@ -17,14 +17,25 @@
     }
 
     &__track-info {
-        width: 25%;
+        width: 20%;
     }
     
     &__album-name {
-        width: 25%;
+        width: 20%;
     }
 
     &__release-date {
-        width: 25%;
+        width: 20%;
+    }
+
+    &__track-actions {
+        width: 5%;
+    }
+
+    &__delete-button {
+        color: $red;
+        cursor: pointer;
+        margin: 0 20px;
+        font-size: 20px;
     }
 }

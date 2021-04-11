@@ -26,7 +26,10 @@ function TrackSearchResult({ track, onTrackAdded }: Props) {
 				<img src={`${track.album.images[0].url}`} alt='track album cover'></img>
 				<div>{track.name} - {track.artists[0].name} </div>
 			</div>
-			<IoAddCircleOutline className='spot-track-search-result-row__add-button' onClick={handleClick} />
+			<IoAddCircleOutline 
+				className='spot-track-search-result-row__add-button' 
+				onClick={handleClick} 
+			/>
 		</div>
 	</>);
 

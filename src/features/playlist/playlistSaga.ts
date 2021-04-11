@@ -16,12 +16,16 @@ import {
 	editCurrentPlayListDetailsError,
 	fetchPlaylists, 
 	fetchPlaylistsError, 
-	fetchPlaylistsSuccess 
+	fetchPlaylistsSuccess, 
+	removeTrackFromPlaylist,
+	removeTrackFromPlaylistSuccess,
+	removeTrackFromPlaylistError
 } from './playlistSlice';
 import { 
 	AddTrackToPlaylistPayload, 
 	CreatePlaylistPayload, 
 	EditCurrentPlaylistDetailsPayload, 
+	RemoveTrackFromPlaylistPayload, 
 	SpotifyPlaylist 
 } from './playlistTypes';
 
@@ -111,10 +115,41 @@ function* editCurrentPlaylistDetailsSaga({ payload } : PayloadAction<EditCurrent
 	}
 }
 
+function* removeTrackFromPlaylistSaga({ payload } : PayloadAction<RemoveTrackFromPlaylistPayload>) {
+	try {
+		const accessToken:string = yield select(getAccessTokenSelector());
+		const currentPlaylist:SpotifyPlaylist = yield select(getCurrentPlaylistSelector());
+		const { trackURI, position } = payload;
+
+		yield axios({ accessToken }).delete(PATHS.ADD_TRACK(currentPlaylist.id), {
+			data: {
+				tracks: [
+					{ 
+						uri: trackURI,
+						positions: [
+							position
+						]
+					}
+				]
+			}
+		});
+
+		yield put(removeTrackFromPlaylistSuccess());
+		yield put(fetchTracksForPlaylist({ playlist: currentPlaylist }));
+
+	} catch(error) {
+		console.error(error);
+		yield put(removeTrackFromPlaylistError({
+			message: error.message
+		}));
+	}
+}
+
 /** @internal */
 export default  function* playListSaga(): Generator {
 	yield takeEvery(fetchPlaylists.type, fetchPlaylistsSaga );
 	yield takeEvery(createPlaylist.type, createPlaylistSaga );
 	yield takeEvery(addTrackToPlaylist.type, addTrackToPlaylistSaga );
 	yield takeEvery(editCurrentPlayListDetails.type, editCurrentPlaylistDetailsSaga);
+	yield takeEvery(removeTrackFromPlaylist.type, removeTrackFromPlaylistSaga);
 }

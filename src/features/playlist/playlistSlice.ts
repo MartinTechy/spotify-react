@@ -9,7 +9,8 @@ import {
 	SetCurrentPlaylistIDPayload,
 	AddTrackToPlaylistPayload,
 	EditCurrentPlaylistDetailsPayload,
-	EditCurrentPlaylistDetailsSuccessPayload
+	EditCurrentPlaylistDetailsSuccessPayload,
+	RemoveTrackFromPlaylistPayload
 } from './playlistTypes';
 
 
@@ -80,6 +81,16 @@ const playlistSlice = createSlice({
 			state.status = RequestStatus.ERROR;
 			state.error = action.payload.message;
 		},
+		removeTrackFromPlaylist(state, action: PayloadAction<RemoveTrackFromPlaylistPayload>){
+			state.status = RequestStatus.PENDING;
+		},
+		removeTrackFromPlaylistSuccess(state){
+			state.status = RequestStatus.SUCCESS;
+		},
+		removeTrackFromPlaylistError(state, action: PayloadAction<ErrorPayload>){
+			state.status = RequestStatus.ERROR;
+			state.error = action.payload.message;
+		},
 	},
 });
 
@@ -97,5 +108,8 @@ export const {
 	editCurrentPlayListDetails,
 	editCurrentPlayListDetailstSuccess,
 	editCurrentPlayListDetailsError,
+	removeTrackFromPlaylist,
+	removeTrackFromPlaylistSuccess,
+	removeTrackFromPlaylistError,
 } = playlistSlice.actions;
 export default playlistSlice.reducer;

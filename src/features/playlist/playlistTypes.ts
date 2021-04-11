@@ -88,3 +88,8 @@ export interface EditCurrentPlaylistDetailsSuccessPayload {
     name: string;
     description: string;
 }
+
+export interface RemoveTrackFromPlaylistPayload {
+    trackURI: string;
+    position: number;
+}

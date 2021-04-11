@@ -1,3 +1,4 @@
+import { RequestStatus } from '../../types/requests';
 
 export type SpotifyPlaylist = {
     colaborative: boolean;
@@ -45,3 +46,45 @@ export type SpotifyImage = {
 export type ExternalUrl = {
     spotify: string;
 } 
+
+
+// Reducer Types
+
+export interface PlaylistReducerState {
+    playlists: SpotifyPlaylist[];
+    currentPlaylistID: string;
+    status: RequestStatus;
+    error?: string;
+}
+
+export interface FetchPlaylistsSuccessPayload {
+    playlists: SpotifyPlaylist[]
+}
+
+export interface SetCurrentPlaylistIDPayload {
+    id: string;
+}
+
+export interface CreatePlaylistPayload {
+	name: string;
+	description: string;
+	isPrivate?: boolean;
+}
+
+export interface CreatePlaylistSuccessPayload {
+	playlist: SpotifyPlaylist;
+}
+
+export interface AddTrackToPlaylistPayload {
+	trackURI: string;
+}
+
+export interface EditCurrentPlaylistDetailsPayload {
+    name: string;
+    description: string;
+}
+
+export interface EditCurrentPlaylistDetailsSuccessPayload {
+    name: string;
+    description: string;
+}

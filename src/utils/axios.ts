@@ -8,6 +8,7 @@ export const PATHS = {
 	ADD_TRACK: (playlistID:string) => `/playlists/${playlistID}/tracks`,
 	AUTHORIZE: '/me/authorize',
 	CREATE_PLAYLIST: (userID:string) => (`/users/${userID}/playlists`),
+	EDIT_PLAYLIST: (playlistID:string) => (`/playlists/${playlistID}`),
 	PLAYLISTS: '/me/playlists',
 	SEARCH: '/search',
 	USER_SELF: '/me'

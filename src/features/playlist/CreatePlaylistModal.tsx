@@ -4,16 +4,25 @@ import { connect } from 'react-redux';
 import './CreatePlaylistModal.scss';
 
 import Button, { BUTTON_STYLES } from '../../components/Button/Button';
-import { createPlaylist, CreatePlaylistPayload } from './playlistSlice';
+import { createPlaylist, editCurrentPlayListDetails } from './playlistSlice';
 import { closeModal } from '../../components/Modal/modalSlice';
+import { CreatePlaylistPayload, EditCurrentPlaylistDetailsPayload } from './playlistTypes';
+import { RootState } from '../../app/store';
+import { getCurrentPlaylistDescriptionSelector, getCurrentPlaylistNameSelector } from './playlistSelectors';
 
-type OwnProps = {}
+type OwnProps = {
+	editMode?: true;
+}
 
-type StateProps = {}
+type StateProps = {
+	name?: string,
+	description?: string;
+}
 
 type DispatchProps = {
 	createPlaylist: (payload: CreatePlaylistPayload) => void
-	closeModal: () => void
+	closeModal: () => void,
+	editCurrentPlayListDetails: (payload: EditCurrentPlaylistDetailsPayload) => void
 }
 
 type Props = OwnProps & StateProps & DispatchProps;
@@ -22,35 +31,65 @@ class CreatePlaylistModal extends Component<Props> {
 
 	constructor(props:Props) {
 		super(props);
-		this.onCreatePlaylist = this.onCreatePlaylist.bind(this);
+		this.onSubmit = this.onSubmit.bind(this);
 	}
 
 	state = {
-		nameInput: '',
-		descriptionInput: '',
+		nameInput: this.props.name || '',
+		descriptionInput: this.props.description || '',
 	}
 
-	onCreatePlaylist() {
+	onSubmit() {
 		const { nameInput, descriptionInput } = this.state;
-		this.props.createPlaylist({ name: nameInput, description: descriptionInput });
+		const { editMode } = this.props;
+		if(editMode) {
+			this.props.editCurrentPlayListDetails({ name: nameInput, description: descriptionInput });
+		} else {
+			this.props.createPlaylist({ name: nameInput, description: descriptionInput });
+		}
 		this.props.closeModal();
 	}
 
 	render () {
+		const { editMode } = this.props;
+		const { nameInput, descriptionInput } = this.state;
 		return (<div className='spot-create-playlist-modal'>
-			<input className='spot-create-playlist-modal__name' name='playlistName' placeholder='Playlist name' onChange={event => this.setState({ ...this.state, nameInput: event.target.value })}/>
-			<textarea className='spot-create-playlist-modal__description' name='playlistDescription' placeholder="Playlist description (optional)" onChange={event => this.setState({ ...this.state, descriptionInput: event.target.value })}/>
+			<input 
+				className='spot-create-playlist-modal__name' 
+				name='playlistName' 
+				placeholder='Playlist name' 
+				onChange={event => this.setState({ ...this.state, nameInput: event.target.value })} 
+				value={nameInput}
+			/>
+			<textarea 
+				className='spot-create-playlist-modal__description' 
+				name='playlistDescription' 
+				placeholder="Playlist description (optional)" 
+				onChange={event => this.setState({ ...this.state, descriptionInput: event.target.value })} 
+				value={descriptionInput} 
+			/>
 			<div className='spot-create-playlist-modal__buttons' >
 				<Button text='Cancel' onClick={() => this.props.closeModal()} style={BUTTON_STYLES.SECONDARY}/>
-				<Button text='Create new Playlist' onClick={this.onCreatePlaylist} />
+				<Button text={`${editMode ? 'Edit' : 'Create new Playlist'}`} onClick={this.onSubmit} />
 			</div>
 		</div>);
 	}
 }
 
-const mapDispatchToProps: DispatchProps = {
-	createPlaylist,
-	closeModal
+const mapStateToProps = (state:RootState, props: OwnProps): StateProps =>  {
+	const { editMode } = props;
+	if( editMode ) {
+		const name = getCurrentPlaylistNameSelector()(state);
+		const description = getCurrentPlaylistDescriptionSelector()(state);
+		return { name, description };
+	}
+	return {};
 };
 
-export default connect(null, mapDispatchToProps)(CreatePlaylistModal);
+const mapDispatchToProps: DispatchProps = {
+	createPlaylist,
+	closeModal,
+	editCurrentPlayListDetails,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreatePlaylistModal);

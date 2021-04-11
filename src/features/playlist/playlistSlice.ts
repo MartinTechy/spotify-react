@@ -1,38 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RequestStatus } from '../../types/requests';
 import { ErrorPayload } from '../../types/store';
-import { SpotifyPlaylist } from './playlistTypes';
+import { 
+	FetchPlaylistsSuccessPayload, 
+	PlaylistReducerState, 
+	CreatePlaylistPayload, 
+	CreatePlaylistSuccessPayload,
+	SetCurrentPlaylistIDPayload,
+	AddTrackToPlaylistPayload,
+	EditCurrentPlaylistDetailsPayload,
+	EditCurrentPlaylistDetailsSuccessPayload
+} from './playlistTypes';
 
-export interface PlaylistReducerState {
-    playlists: SpotifyPlaylist[];
-    currentPlaylistID: string;
-    status: RequestStatus;
-    error?: string;
-}
 
-export interface FetchPlaylistsSuccessPaylaod {
-    playlists: SpotifyPlaylist[]
-}
-
-export interface SetCurrentPlaylistIDPayload {
-    id: string;
-}
-
-export interface CreatePlaylistPayload {
-	name: string;
-	description: string;
-	isPrivate?: boolean;
-}
-
-export interface CreatePlaylistSuccessPayload {
-	playlist: SpotifyPlaylist;
-}
-
-export interface AddTrackToPlaylistPayload {
-	trackURI: string;
-}
-
-const initialState:PlaylistReducerState = {
+const initialState: PlaylistReducerState = {
 	playlists: [],
 	currentPlaylistID: '',
 	status: RequestStatus.IDLE,
@@ -45,7 +26,7 @@ const playlistSlice = createSlice({
 		fetchPlaylists(state) {
 			state.status = RequestStatus.PENDING;
 		},
-		fetchPlaylistsSuccess(state, action: PayloadAction<FetchPlaylistsSuccessPaylaod>) {
+		fetchPlaylistsSuccess(state, action: PayloadAction<FetchPlaylistsSuccessPayload>) {
 			state.status = RequestStatus.SUCCESS;
 			state.playlists = action.payload.playlists;
 			state.currentPlaylistID = action.payload.playlists[0].id;
@@ -82,7 +63,23 @@ const playlistSlice = createSlice({
 		addTrackToPlaylistError(state, action: PayloadAction<ErrorPayload>) {
 			state.status = RequestStatus.ERROR;
 			state.error = action.payload.message;
-		}
+		},
+		editCurrentPlayListDetails(state, action: PayloadAction<EditCurrentPlaylistDetailsPayload>) {
+			const { name, description } = action.payload;
+			const { currentPlaylistID, playlists } = state;
+			const currentPlaylistIndex = playlists.findIndex(playlist => playlist.id === currentPlaylistID);
+
+			state.playlists[currentPlaylistIndex].name = name;
+			state.playlists[currentPlaylistIndex].description = description;
+			state.status = RequestStatus.PENDING;
+		},
+		editCurrentPlayListDetailstSuccess(state, action: PayloadAction<EditCurrentPlaylistDetailsSuccessPayload>) {
+			state.status = RequestStatus.SUCCESS;
+		},
+		editCurrentPlayListDetailsError(state, action: PayloadAction<ErrorPayload>) {
+			state.status = RequestStatus.ERROR;
+			state.error = action.payload.message;
+		},
 	},
 });
 
@@ -96,6 +93,9 @@ export const {
 	createPlaylistError,
 	addTrackToPlaylist,
 	addTrackToPlaylistSuccess,
-	addTrackToPlaylistError
+	addTrackToPlaylistError,
+	editCurrentPlayListDetails,
+	editCurrentPlayListDetailstSuccess,
+	editCurrentPlayListDetailsError,
 } = playlistSlice.actions;
 export default playlistSlice.reducer;

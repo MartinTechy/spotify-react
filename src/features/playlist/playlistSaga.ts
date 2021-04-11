@@ -3,9 +3,27 @@ import {  PayloadAction } from '@reduxjs/toolkit';
 import { axios, PATHS } from '../../utils/axios';
 import { getAccessTokenSelector, getUserIDSelector } from '../authentication/authenticationSelectors';
 import { fetchTracksForPlaylist } from '../track/trackSlice';
-import { getCurrentPlaylistSelector } from './playlistSelectors';
-import { addTrackToPlaylist, addTrackToPlaylistError, AddTrackToPlaylistPayload, addTrackToPlaylistSuccess, createPlaylist, createPlaylistError, CreatePlaylistPayload, createPlaylistSuccess, fetchPlaylists, fetchPlaylistsError, fetchPlaylistsSuccess } from './playlistSlice';
-import { SpotifyPlaylist } from './playlistTypes';
+import { getCurrentPlaylistIDSelector, getCurrentPlaylistSelector } from './playlistSelectors';
+import { 
+	addTrackToPlaylist, 
+	addTrackToPlaylistError, 
+	addTrackToPlaylistSuccess, 
+	createPlaylist, 
+	createPlaylistError, 
+	createPlaylistSuccess, 
+	editCurrentPlayListDetails, 
+	editCurrentPlayListDetailstSuccess,
+	editCurrentPlayListDetailsError,
+	fetchPlaylists, 
+	fetchPlaylistsError, 
+	fetchPlaylistsSuccess 
+} from './playlistSlice';
+import { 
+	AddTrackToPlaylistPayload, 
+	CreatePlaylistPayload, 
+	EditCurrentPlaylistDetailsPayload, 
+	SpotifyPlaylist 
+} from './playlistTypes';
 
 function* fetchPlaylistsSaga() {
 	try {
@@ -56,7 +74,6 @@ function* addTrackToPlaylistSaga({ payload } : PayloadAction<AddTrackToPlaylistP
 				uris: trackURI,
 				position: 0
 			},
-			
 		});
 
 		yield put(addTrackToPlaylistSuccess());
@@ -70,9 +87,34 @@ function* addTrackToPlaylistSaga({ payload } : PayloadAction<AddTrackToPlaylistP
 	}
 }
 
+function* editCurrentPlaylistDetailsSaga({ payload } : PayloadAction<EditCurrentPlaylistDetailsPayload>) {
+	try {
+		const accessToken:string = yield select(getAccessTokenSelector());
+		const currentPlaylistID:string = yield select(getCurrentPlaylistIDSelector());
+		const { name, description } = payload;
+
+		yield axios({ accessToken }).put(PATHS.EDIT_PLAYLIST(currentPlaylistID), {
+			name,
+			description
+		});
+
+		yield put(editCurrentPlayListDetailstSuccess({
+			name,
+			description
+		}));
+
+	} catch(error) {
+		console.error(error);
+		yield put(editCurrentPlayListDetailsError({
+			message: error.message
+		}));
+	}
+}
+
 /** @internal */
 export default  function* playListSaga(): Generator {
 	yield takeEvery(fetchPlaylists.type, fetchPlaylistsSaga );
 	yield takeEvery(createPlaylist.type, createPlaylistSaga );
 	yield takeEvery(addTrackToPlaylist.type, addTrackToPlaylistSaga );
+	yield takeEvery(editCurrentPlayListDetails.type, editCurrentPlaylistDetailsSaga);
 }

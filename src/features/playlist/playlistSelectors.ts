@@ -12,3 +12,5 @@ export const getCurrentPlaylistSelector = () => (state: RootState) => {
 };
 
 export const getCurrentPlaylistDescriptionSelector = () => (state: RootState) => getCurrentPlaylistSelector()(state)?.description;
+
+export const getCurrentPlaylistNameSelector = () => (state: RootState) => getCurrentPlaylistSelector()(state)?.name;

@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 
 import PlaylistDetails from './features/playlist/PlaylistDetails';
-import CreatePlaylist from './features/playlist/CreatePlaylistButton';
+import CreateEditPlaylistButton from './features/playlist/CreateEditPlaylistButton';
 import TrackSearch from './features/trackSearch/TrackSearch';
 import PlaylistSelect from './features/playlist/PlaylistSelect';
 import { useDispatch, useSelector } from 'react-redux';
@@ -34,7 +34,7 @@ function App() {
 		<div className='spot-app'>
 			<div className='spot-app__header'>
 				<TrackSearch />
-				<CreatePlaylist />
+				<CreateEditPlaylistButton />
 			</div>
 			<div className='spot-app__playlist-selector'>
 				<PlaylistSelect playlists={playlists} /> 
